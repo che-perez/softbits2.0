@@ -9,7 +9,8 @@ class KiosksController < ApiController
 	def show
 	 kiosk = Kiosk.find(params[:id])
 	 kiosk_user = kiosk.user
-	 render json: { kiosk: kiosk, username: kiosk_user.username }
+	 kiosk_inventory = Inventory.where(kiosk_id: kiosk.id)
+	 render json: { kiosk: kiosk, username: kiosk_user.username, kiosk_inventory: kiosk_inventory }
 	end
 	
 	def create

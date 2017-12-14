@@ -8,8 +8,12 @@ class UsersController < ApiController
 	
 	def profile
 	  user = User.find_by_auth_token!(request.headers[:token])
+	  
 	  user_kiosks = Kiosk.where(user_id: user.id)
-	  render json: { user: { username: user.username, firstname: user.fname, lastname: user.lname }, kiosk: user_kiosks, }
+	  
+	  kiosk_inventory = Inventory.where(kiosk_id: user_kiosks.ids)
+	  
+	  render json: { user: { username: user.username, firstname: user.fname, lastname: user.lname }, kiosk:  user_kiosks , inventory: kiosk_inventory, }
 	end
 	
 	private
