@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Auth from '../modules/Auth';
 
 import NewKioskForm from './NewKioskForm';
@@ -61,6 +62,7 @@ class Dashboard extends Component {
 								<h1>{kiosk.kiosk_name}</h1>
 								<h2>{kiosk.address}</h2>
 								<h3>{kiosk.location}</h3>
+								<Link to={`/kiosk/${kiosk.id}`}>Details</Link>
 							   </div>
 					}) : <p>Loading...</p>
 					
