@@ -38,7 +38,7 @@ handleLogout() {
 			<nav className="nav">
 				<Link to="/login">Log In</Link>
 				<Link to="/register">Register</Link>
-				<Link to="/dash">Profile</Link>
+				<Link to="/profile">Profile</Link>
 				<span onClick={this.handleLogout}>Logout</span>
 			</nav>
 		)
