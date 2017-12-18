@@ -27,10 +27,24 @@ class InventoriesController < ApiController
 	  end
 	end
 	
+	def update
+	  item = Inventory.find(params[:id])
+	  if item.update(update_params)
+	  	render json: { message: 'item Updated', item: item, }
+	  
+	  else
+	  	render json: { message: 'Can not be updated!'}
+	  end
+	end
+	
 	private
 	
 	def item_params
-	  params.require(:item).permit(:item_name, :item_type, :item_cost, :item_quantity)
+	 params.require(:item).permit(:item_name, :item_type, :item_cost, :item_quantity)
+	end
+	
+	def update_params
+	 params.require(:item).permit(:item_name, :item_type, :item_cost, :item_quantity)
 	end
 	  
 end
