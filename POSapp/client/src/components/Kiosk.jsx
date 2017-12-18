@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Auth from '../modules/Auth';
+import { BrowserRouter as Router, Link, Route} from 'react-router-dom';
+
+import Controller from './Controller';
+
 
 class Kiosk extends Component {
 	constructor(props) {
@@ -10,6 +14,7 @@ class Kiosk extends Component {
 	render() {
 		console.log(this.props)
 		return (
+			<Router>
 			<div className="container">
 				<div className="info-kiosk">
 					<h1>{this.props.oneKiosk.kiosk.kiosk_name}</h1>
@@ -24,11 +29,17 @@ class Kiosk extends Component {
 								<h4>{item.item_type}</h4>
 								<p>Quantity:{item.item_quantity}</p>
 								<p>Price: ${item.item_cost}</p>
+								<Link to={`/${this.props.oneKiosk.kiosk.id}/item-edit`}>Edit Item</Link>
+								<Route exact path="/:id/item-edit" render={props => (<Controller
+                currentPage="item-edit" currentId={this.props.oneKiosk.kiosk.id} itemId={item.id} /> )} />
 							</div>
 					)
 					})}
 				</div>
+				
+
 			</div>
+			</Router>
 		)
 	}
 }

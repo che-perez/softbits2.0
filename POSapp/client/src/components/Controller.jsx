@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Kiosk from './Kiosk';
 import KioskForm from './KioskForm';
+import ItemForm from './ItemForm';
 
 class Controller extends Component {
 	constructor(props) {
@@ -12,8 +13,10 @@ class Controller extends Component {
 		this.state = {
 			currentPage: props.currentPage,
 			currentId: props.currentId || null,
+			itemId: props.itemId || null,
 			myKiosks: null,
 			oneKiosk: null,
+			oneItem: null,
 			dataLoaded: false,
 			fireRedirect: false,
 			redirectPath: null,
@@ -21,6 +24,7 @@ class Controller extends Component {
 		
 		this.newKiosk = this.newKiosk.bind(this);
 		this.kioskDelete = this.kioskDelete.bind(this);
+		this.itemSubmit = this.itemSubmit.bind(this);
 		
 	}
 	
@@ -53,7 +57,21 @@ class Controller extends Component {
 						dataLoaded: true,
 						})
 						}).catch(err => console.log(err));
-		} else if (this.state.currentPage === 'new') {
+		} else if (this.state.currentPage === 'new-item' || this.state.currentPage === 'item-edit') {
+					fetch(`/kiosks/${this.state.currentId}/inventories/${this.state.itemId}`, {
+						method: 'GET',
+						headers: {
+						token: Auth.getToken(),
+						'Authorization': `Token ${Auth.getToken()}`,
+						}
+					}).then(res => res.json())	
+						.then(res => {
+							this.setState({
+								oneItem: res,
+								dataLoaded: true,
+							})
+						}).catch(err => console.log(err));
+		} else if (this.state.currentPage === 'new' || this.state.currentPage === 'new-item') {
 			this.setState({
 				dataLoaded: true,
 			})
@@ -77,7 +95,29 @@ class Controller extends Component {
 				console.log(res);
 				this.setState({
 					fireRedirect: true,
-					redirectPath: `/kisoks/${res.data.kiosk.id}`,
+					redirectPath: `/kisoks/${this.state.currentId}`,
+				})
+			}).catch(err => console.log(err));
+	}
+	
+	itemSubmit(method, e, data, id) {
+		e.preventDefault();
+		fetch(`/kiosks/${this.state.currentId}/inventories/${id || ''}`, {
+			method: method,
+			headers: {
+				'Content-Type': 'application/json',
+				token: Auth.getToken(),
+				'Authorization': `Token ${Auth.getToken()}`,
+			},
+			body: JSON.stringify({
+				item: data,
+			}),
+		}).then(res => res.json())
+			.then(res => {
+				console.log(res);
+				this.setState({
+					fireRedirect: true,
+					redirectPath: `/kisoks/${this.state.currentId}`,
 				})
 			}).catch(err => console.log(err));
 	}
@@ -102,16 +142,19 @@ class Controller extends Component {
 	decideWhichToRender() {
 		switch (this.state.currentPage) {
 			case 'profile':
-				return <Dashboard myKiosks={this.state.myKiosks} />;
+				return <Dashboard myKiosks={this.state.myKiosks} kioskDelete={this.kioskDelete}/>;
 				break;
 			case 'kiosk':
-				return <Kiosk oneKiosk={this.state.oneKiosk} kioskDelete={this.kioskDelete} />;
+				return <Kiosk oneKiosk={this.state.oneKiosk} />;
 				break;
 			case 'new':
 				return <KioskForm isAdd={true} newKiosk={this.newKiosk} />;
 				break;
 			case 'edit':
 				return <KioskForm isAdd={false} newKiosk={this.newKiosk} oneKiosk={this.state.oneKiosk} />;
+				break;
+			case 'item-edit':
+				return <ItemForm isAdd={false} itemSubmit={this.itemSubmit} oneItem={this.state.oneItem} />;
 				break;
 			default:
 				return<Redirect push to='/profile' />;
@@ -120,6 +163,7 @@ class Controller extends Component {
 	}
 	
 	render() {
+		console.log(this.props)
 		return (
 			<div className="container">
 				{(this.state.dataLoaded) ? this.decideWhichToRender() : <p>Loading...</p>}

@@ -24,6 +24,9 @@ class Dashboard extends Component {
 							<Link to={`kiosks/${kiosk.id}`}>Details</Link>
 							<Link to={`kiosks/${kiosk.id}/edit`}>Edit Kiosk
 								</Link>
+							<span className="delete" onClick={() =>
+								this.props.kioskDelete(
+									kiosk.id)}>Delete</span>
 						</div>
 					)
 				})}
