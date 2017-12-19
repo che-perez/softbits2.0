@@ -5,6 +5,7 @@ class User < ApplicationRecord
 	
 	has_many :kiosks
 	has_many :inventories, through: :kiosks
+	has_many :orders
 	
 	def invalidate_token
 	  self.update_columns(auth_token: nil)

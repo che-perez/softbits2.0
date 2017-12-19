@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get "/profile" => "users#profile"
   resources :kiosks do
   	resources :inventories
-  end	
+  end
+  
+  resources :orders, only: [:show, :index, :create] do
+    resources :order_items, only: [:create, :destroy]
+  end  	
   
 end
