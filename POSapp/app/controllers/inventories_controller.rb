@@ -37,6 +37,12 @@ class InventoriesController < ApiController
 	  end
 	end
 	
+	def destroy
+	  item = Inventory.find(params[:id])
+	  	item.destroy!
+	  	render json: { message: "Item was deleted" }
+	end
+	
 	private
 	
 	def item_params

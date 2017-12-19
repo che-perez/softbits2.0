@@ -30,6 +30,7 @@ class Kiosk extends Component {
 								<p>Quantity:{item.item_quantity}</p>
 								<p>Price: ${item.item_cost}</p>
 								<Link to={`/${this.props.oneKiosk.kiosk.id}/item-edit`}>Edit Item</Link>
+								<span className="delete" onClick={() => this.props.itemDelete(item.id)}>Delete</span>
 								<Route exact path="/:id/item-edit" render={props => (<Controller
                 currentPage="item-edit" currentId={this.props.oneKiosk.kiosk.id} itemId={item.id} /> )} />
 							</div>

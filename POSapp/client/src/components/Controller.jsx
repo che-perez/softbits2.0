@@ -25,6 +25,7 @@ class Controller extends Component {
 		this.newKiosk = this.newKiosk.bind(this);
 		this.kioskDelete = this.kioskDelete.bind(this);
 		this.itemSubmit = this.itemSubmit.bind(this);
+		this.itemDelete = this.itemDelete.bind(this);
 		
 	}
 	
@@ -139,13 +140,30 @@ class Controller extends Component {
 			}).catch(err => console.log(err));
 	}
 	
+	itemDelete(id) {
+		fetch(`/kiosks/${this.state.currentId}/inventories/${id}`, {
+			method: 'DELETE',
+			headers: {
+				token: Auth.getToken(),
+				'Authorization': `Token ${Auth.getToken()}`,
+			}
+		}).then(res => res.json())
+			.then(res => {
+				console.log(res);
+				this.setState({
+					fireRedirecy: true,
+					redirectPath: `/kisoks/${this.state.currentId}`,
+				});
+			}).catch(err => console.log(err));
+	}
+	
 	decideWhichToRender() {
 		switch (this.state.currentPage) {
 			case 'profile':
 				return <Dashboard myKiosks={this.state.myKiosks} kioskDelete={this.kioskDelete}/>;
 				break;
 			case 'kiosk':
-				return <Kiosk oneKiosk={this.state.oneKiosk} />;
+				return <Kiosk oneKiosk={this.state.oneKiosk} itemDelete={this.itemDelete}/>;
 				break;
 			case 'new':
 				return <KioskForm isAdd={true} newKiosk={this.newKiosk} />;
