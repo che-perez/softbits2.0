@@ -22,6 +22,9 @@ class Kiosk extends Component {
 				</div>
 				<div className="inventory">
 					<h1>Inventory</h1>
+					<Link to={`/${this.props.oneKiosk.kiosk.id}/item-new`}>New Item</Link>
+					<Route exact path="/:id/item-new" render={props => (<Controller
+						currentPage="new-item" currentId={this.props.oneKiosk.kiosk.id} /> )} />
 					{this.props.oneKiosk.kiosk_inventory.map(item => {
 						return (
 							<div className="item" key={item.id}>

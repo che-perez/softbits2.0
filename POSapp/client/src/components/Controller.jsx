@@ -58,7 +58,7 @@ class Controller extends Component {
 						dataLoaded: true,
 						})
 						}).catch(err => console.log(err));
-		} else if (this.state.currentPage === 'new-item' || this.state.currentPage === 'item-edit') {
+		} else if (this.state.currentPage === 'item-edit') {
 					fetch(`/kiosks/${this.state.currentId}/inventories/${this.state.itemId}`, {
 						method: 'GET',
 						headers: {
@@ -170,6 +170,9 @@ class Controller extends Component {
 				break;
 			case 'edit':
 				return <KioskForm isAdd={false} newKiosk={this.newKiosk} oneKiosk={this.state.oneKiosk} />;
+				break;
+			case 'new-item':
+				return <ItemForm isAdd={true} itemSubmit={this.itemSubmit} />;
 				break;
 			case 'item-edit':
 				return <ItemForm isAdd={false} itemSubmit={this.itemSubmit} oneItem={this.state.oneItem} />;
