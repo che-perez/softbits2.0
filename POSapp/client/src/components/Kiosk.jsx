@@ -19,6 +19,7 @@ class Kiosk extends Component {
 				<div className="info-kiosk">
 					<h1>{this.props.oneKiosk.kiosk.kiosk_name}</h1>
 					<h3>{this.props.oneKiosk.kiosk.address}</h3>
+					<span className="order" onClick={(e) => this.props.newOrder(e)}>Create Order</span>
 				</div>
 				<div className="inventory">
 					<h1>Inventory</h1>

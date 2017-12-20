@@ -26,6 +26,7 @@ class Controller extends Component {
 		this.kioskDelete = this.kioskDelete.bind(this);
 		this.itemSubmit = this.itemSubmit.bind(this);
 		this.itemDelete = this.itemDelete.bind(this);
+		this.newOrder = this.newOrder.bind(this);
 		
 	}
 	
@@ -72,9 +73,9 @@ class Controller extends Component {
 								dataLoaded: true,
 							})
 						}).catch(err => console.log(err));
-		} else if (this.state.currentPage === 'new' || this.state.currentPage === 'new-item') {
-			this.setState({
-				dataLoaded: true,
+		}  else if (this.state.currentPage === 'new' || this.state.currentPage === 'new-item') {
+							this.setState({
+								dataLoaded: true,
 			})
 		}
 	}
@@ -101,6 +102,28 @@ class Controller extends Component {
 			}).catch(err => console.log(err));
 	}
 	
+	newOrder(e) {
+		e.preventDefault();
+		fetch('/orders', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				token: Auth.getToken(),
+				'Authorization': `Token ${Auth.getToken()}`,
+			},
+			body: JSON.stringify({
+				total: 0,
+			}),
+		}).then(res => res.json())
+			.then(res => {
+				console.log(res);
+				this.setState({
+					fireRedirect: true,
+					redirectPath: '/order',
+				})
+			}).catch(err => console.log(err));
+	}
+	
 	itemSubmit(method, e, data, id) {
 		e.preventDefault();
 		fetch(`/kiosks/${this.state.currentId}/inventories/${id || ''}`, {
@@ -122,6 +145,8 @@ class Controller extends Component {
 				})
 			}).catch(err => console.log(err));
 	}
+	
+	
 	
 	kioskDelete(id) {
 		fetch(`/kiosks/${id}`, {
@@ -163,7 +188,8 @@ class Controller extends Component {
 				return <Dashboard myKiosks={this.state.myKiosks} kioskDelete={this.kioskDelete}/>;
 				break;
 			case 'kiosk':
-				return <Kiosk oneKiosk={this.state.oneKiosk} itemDelete={this.itemDelete}/>;
+				return <Kiosk oneKiosk={this.state.oneKiosk} itemDelete={this.itemDelete}
+							newOrder={this.newOrder}/>;
 				break;
 			case 'new':
 				return <KioskForm isAdd={true} newKiosk={this.newKiosk} />;

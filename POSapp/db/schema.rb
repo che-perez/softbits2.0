@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20171219201229) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.float "total"
+    t.float "total", default: 0.0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
