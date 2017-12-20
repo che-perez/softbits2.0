@@ -31,7 +31,7 @@ class Kiosk extends Component {
 							<div className="item" key={item.id}>
 								<h2>{item.item_name}</h2>
 								<h4>{item.item_type}</h4>
-								<p>Quantity:{item.item_quantity}</p>
+								<p>Quantity: {item.item_quantity}</p>
 								<p>Price: ${item.item_cost}</p>
 								<Link className="form-links" to={`/${this.props.oneKiosk.kiosk.id}/item-edit`}>Edit Item</Link>
 								<span className="delete" onClick={() => this.props.itemDelete(item.id)}>Delete</span>

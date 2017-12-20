@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import Controller from './components/Controller';
+import Home from './components/Home';
 
 
 class App extends Component {
@@ -69,6 +70,7 @@ class App extends Component {
 	    <Router>
       <div className="App">
       <Nav />
+      <Route exact path="/" component={Home} />
       <Route exact path="/register" render={() => (this.state.auth) 
 	      ? <Redirect to="/profile" />
 	      	: <RegisterForm handleRegisterSubmit={this.handleRegisterSubmit} /> } />

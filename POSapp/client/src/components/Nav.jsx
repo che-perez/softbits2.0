@@ -36,7 +36,7 @@ handleLogout() {
 	render() {
 		return (
 			<nav className="nav">
-			<h1 className="logo">softBits</h1>
+			<Link className="logo" to="/">softBits</Link>
 			{this.state.auth ?
 				<div className="mini">
 				<Link className="links" to="/profile">Profile</Link>

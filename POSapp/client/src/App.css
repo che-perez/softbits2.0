@@ -29,6 +29,7 @@
 .logo {
 	font-size: 3em;
 	color: #36d4fb;
+	text-decoration: none;
 }
 
 .delete {
@@ -79,6 +80,19 @@
 	
 }
 
+.home {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2em;
+}
+
+.pos {
+	color: #ef0b6e;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
 .form {
     max-width: 300px;
     padding: 10px 20px;
@@ -91,7 +105,8 @@
 }
 
 .form input[type="text"],
-.form input[type="number"] {
+.form input[type="number"],
+.form input[type="password"] {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
@@ -112,7 +127,8 @@
     
 }
 .form input[type="text"]:focus,
-.form input[type="number"]:focus{
+.form input[type="number"]:focus,
+.form input[type="password"]:focus {
     background: #d2d9dd;
 }
 .form .number {
