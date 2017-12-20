@@ -19,11 +19,11 @@ class Kiosk extends Component {
 				<div className="info-kiosk">
 					<h1>{this.props.oneKiosk.kiosk.kiosk_name}</h1>
 					<h3>{this.props.oneKiosk.kiosk.address}</h3>
-					<span className="order" onClick={(e) => this.props.newOrder(e)}>Create Order</span>
+					<span className="links" onClick={(e) => this.props.newOrder(e)}>Create Order</span>
 				</div>
 				<div className="inventory">
 					<h1>Inventory</h1>
-					<Link to={`/${this.props.oneKiosk.kiosk.id}/item-new`}>New Item</Link>
+					<Link className="form-links" to={`/${this.props.oneKiosk.kiosk.id}/item-new`}>New Item</Link>
 					<Route exact path="/:id/item-new" render={props => (<Controller
 						currentPage="new-item" currentId={this.props.oneKiosk.kiosk.id} /> )} />
 					{this.props.oneKiosk.kiosk_inventory.map(item => {
@@ -33,7 +33,7 @@ class Kiosk extends Component {
 								<h4>{item.item_type}</h4>
 								<p>Quantity:{item.item_quantity}</p>
 								<p>Price: ${item.item_cost}</p>
-								<Link to={`/${this.props.oneKiosk.kiosk.id}/item-edit`}>Edit Item</Link>
+								<Link className="form-links" to={`/${this.props.oneKiosk.kiosk.id}/item-edit`}>Edit Item</Link>
 								<span className="delete" onClick={() => this.props.itemDelete(item.id)}>Delete</span>
 								<Route exact path="/:id/item-edit" render={props => (<Controller
                 currentPage="item-edit" currentId={this.props.oneKiosk.kiosk.id} itemId={item.id} /> )} />

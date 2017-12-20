@@ -68,7 +68,6 @@ class App extends Component {
     return (
 	    <Router>
       <div className="App">
-      <h1>softBits</h1>
       <Nav />
       <Route exact path="/register" render={() => (this.state.auth) 
 	      ? <Redirect to="/profile" />
@@ -87,6 +86,9 @@ class App extends Component {
 	  <Route exact path="/kiosks/:id/edit"
               render={props => (<Controller
                 currentPage="edit" currentId={props.match.params.id} />)}
+            />
+      <Route exact path="/order"
+              render={props => (<Controller currentPage="order" />)}
             />
 	  
       </div>

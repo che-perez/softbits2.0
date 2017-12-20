@@ -36,10 +36,19 @@ handleLogout() {
 	render() {
 		return (
 			<nav className="nav">
-				<Link to="/login">Log In</Link>
-				<Link to="/register">Register</Link>
-				<Link to="/profile">Profile</Link>
-				<span onClick={this.handleLogout}>Logout</span>
+			<h1 className="logo">softBits</h1>
+			{this.state.auth ?
+				<div className="mini">
+				<Link className="links" to="/profile">Profile</Link>
+				<span className="links" onClick={this.handleLogout}>Logout</span>
+				</div>
+				
+			:	
+				<div className="mini">
+				<Link className="links" to="/login">Log In</Link>
+				<Link className="links" to="/register">Register</Link>
+				</div>
+			}
 			</nav>
 		)
 	}

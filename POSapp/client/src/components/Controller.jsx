@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import Kiosk from './Kiosk';
 import KioskForm from './KioskForm';
 import ItemForm from './ItemForm';
+import Order from './Order';
 
 class Controller extends Component {
 	constructor(props) {
@@ -73,7 +74,7 @@ class Controller extends Component {
 								dataLoaded: true,
 							})
 						}).catch(err => console.log(err));
-		}  else if (this.state.currentPage === 'new' || this.state.currentPage === 'new-item') {
+		} else if (this.state.currentPage === 'new' || this.state.currentPage === 'new-item') {
 							this.setState({
 								dataLoaded: true,
 			})
@@ -97,7 +98,7 @@ class Controller extends Component {
 				console.log(res);
 				this.setState({
 					fireRedirect: true,
-					redirectPath: `/kisoks/${this.state.currentId}`,
+					redirectPath: '/profile',
 				})
 			}).catch(err => console.log(err));
 	}
@@ -161,6 +162,7 @@ class Controller extends Component {
 				this.setState({
 					fireRedirecy: true,
 					redirectPath: '/profile',
+					currentPage: 'order',
 				});
 			}).catch(err => console.log(err));
 	}
@@ -202,6 +204,9 @@ class Controller extends Component {
 				break;
 			case 'item-edit':
 				return <ItemForm isAdd={false} itemSubmit={this.itemSubmit} oneItem={this.state.oneItem} />;
+				break;
+			case 'order':
+				return <Order oneKiosk={this.state.oneKiosk} />;
 				break;
 			default:
 				return<Redirect push to='/profile' />;

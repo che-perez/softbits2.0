@@ -36,9 +36,9 @@ class ItemForm extends Component {
 						value={this.state.item_name} onChange={this.handleInputChange} />
 					<input type="text" name="item_type" placeholder="Item Type"
 						value={this.state.item_type} onChange={this.handleInputChange} />
-					<input type="number" name="item_quantity" placeholder="Item Quantity"
+					<input type="number" className="number" name="item_quantity" placeholder="Item Quantity"
 						value={this.state.item_quantity} onChange={this.handleInputChange} />
-					<input type="text" name="item_cost" placeholder="Item Cost"
+					<input type="number" className="number" name="item_cost" placeholder="Item Cost"
 						value={this.state.item_cost} onChange={this.handleInputChange} />
 					<input type="submit" value={this.props.isAdd ? 'Add it!' : 'Edit it!'} />
 				</form>
