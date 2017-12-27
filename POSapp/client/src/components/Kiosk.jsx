@@ -28,7 +28,7 @@ class Kiosk extends Component {
 						currentPage="new-item" currentId={this.props.oneKiosk.kiosk.id} /> )} />
 					{this.props.oneKiosk.kiosk_inventory.map(item => {
 						return (
-							<div className="item" key={item.id}>
+							<div className="item box box1 shadow1" key={item.id}>
 								<h2>{item.item_name}</h2>
 								<h4>{item.item_type}</h4>
 								<p>Quantity: {item.item_quantity}</p>
